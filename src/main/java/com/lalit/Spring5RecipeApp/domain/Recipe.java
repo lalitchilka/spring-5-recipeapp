@@ -29,6 +29,9 @@ public class Recipe {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredients> ingredients;
 
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
+
     public Set<Ingredients> getIngredients() {
         return ingredients;
     }
@@ -115,5 +118,13 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 }
