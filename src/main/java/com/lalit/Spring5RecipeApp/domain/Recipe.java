@@ -1,6 +1,7 @@
 package com.lalit.Spring5RecipeApp.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,9 +17,9 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
+
+    @Lob
     private String direction;
-    //// TODO: 12-07-2020 add
-    //private Difficulty difficulty
 
     @Lob
     private Byte[] image;
@@ -27,7 +28,7 @@ public class Recipe {
     private Notes notes;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredients> ingredients;
+    private Set<Ingredients> ingredients = new HashSet<>();
 
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
@@ -37,7 +38,7 @@ public class Recipe {
         joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public Set<Ingredients> getIngredients() {
         return ingredients;
@@ -124,7 +125,15 @@ public class Recipe {
     }
 
     public void setNotes(Notes notes) {
+
         this.notes = notes;
+        notes.setRecipe(this);
+    }
+
+    public Recipe addIngredients(Ingredients ingredients){
+        ingredients.setRecipe(this);
+        this.ingredients.add(ingredients);
+        return this;
     }
 
     public Difficulty getDifficulty() {
