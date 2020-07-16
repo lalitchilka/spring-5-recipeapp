@@ -4,15 +4,18 @@ import com.lalit.Spring5RecipeApp.domain.*;
 import com.lalit.Spring5RecipeApp.repositories.CategoryRepository;
 import com.lalit.Spring5RecipeApp.repositories.RecipeRepository;
 import com.lalit.Spring5RecipeApp.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class BootStrapStartUp implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -26,12 +29,15 @@ public class BootStrapStartUp implements ApplicationListener<ContextRefreshedEve
         this.recipeRepository = recipeRepository;
     }
 
+    @Transactional
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        log.debug("Inside onApplicationEvent method");
         recipeRepository.saveAll(loadData());
     }
 
     public List<Recipe> loadData(){
+        log.debug("Inside loadData method and loading data...");
         List<Recipe> recipies = new ArrayList<>();
 
         //get UOM
