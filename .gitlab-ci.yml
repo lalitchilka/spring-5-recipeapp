@@ -1,8 +1,13 @@
 image: maven:3.6.3-jdk-11
 
+cache:
+  paths:
+    - .m2/repository
+
 stages:
   - validate
   - test
+  - integration-test
   - package
   - deploy
 
@@ -22,6 +27,11 @@ run-unit-tests:
   stage: test
   script:
     - 'mvn $MAVEN_CLI_OPTS -Dmaven.main.skip=true test'
+
+run-integration-tests:
+  stage: integration-test
+  script:
+    - 'mvn $MAVEN_CLI_OPTS -Dmaven.main.skip=true integration-test'
 
 build-dist:
   stage: package
