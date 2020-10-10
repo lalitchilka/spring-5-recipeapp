@@ -93,10 +93,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <ul>
-                                    <li>1 Cup of milk</li>
-                                    <li>1 Teaspoon of chocolate</li>
-                                    <li>1 Teaspoon of Sugar</li>
+                                <ul th:each="ingredient : ${recipe.ingredients}">
+                                    <li th:text="${ingredient.description}">1 Cup of milk</li>
                                 </ul>
                             </div>
                         </div>
