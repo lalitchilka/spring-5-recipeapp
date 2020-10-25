@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class UnitOfMeasureToUnitOfMeasureCommandTest {
 
@@ -17,6 +18,11 @@ public class UnitOfMeasureToUnitOfMeasureCommandTest {
     @BeforeEach
     void setUp() {
         unitOfMeasureToUnitOfMeasureCommand = new UnitOfMeasureToUnitOfMeasureCommand();
+    }
+
+    @Test
+    void testNullParameter() {
+        assertNull(unitOfMeasureToUnitOfMeasureCommand.convert(null));
     }
 
     @Test
